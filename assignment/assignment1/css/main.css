@@ -25,3 +25,21 @@ body {
     overflow-y: auto;
     padding: 20px;
 }
+
+input[type=text] {
+    width: 280px;
+  }
+
+h1 {
+  border-top: 2px solid black;
+  padding-top: 15px
+}
+
+#schoolname {
+  font-family: Calibri;
+  background-color: #d3a9a3;
+}
+
+#second {
+  color: #dad3d2;
+}

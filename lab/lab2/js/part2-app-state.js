@@ -31,37 +31,6 @@
        }
        var one = justOne();
 ===================== */
-
-// We set this to HTTP to prevent 'CORS' issues
-var downloadData = $.ajax("http://");
-var parseData = function() {};
-var makeMarkers = function() {};
-var plotMarkers = function() {};
-
-
-/* =====================
-  Define the function removeData so that it clears the markers you've written
-  from the map. You'll know you've succeeded when the markers that were
-  previously displayed are immediately removed from the map.
-
-  In Leaflet, the syntax for removing one specific marker looks like this:
-
-  map.removeLayer(marker);
-
-  In real applications, this will typically happen in response to changes to the
-  user's input.
-===================== */
-
-var removeMarkers = function() {};
-
-/* =====================
-  Optional, stretch goal
-  Write the necessary code (however you can) to plot a filtered down version of
-  the downloaded and parsed data.
-
-  Note: You can add or remove from the code at the bottom of this file.
-===================== */
-
 /* =====================
  Leaflet setup - feel free to ignore this
 ===================== */
@@ -77,6 +46,46 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
   maxZoom: 20,
   ext: 'png'
 }).addTo(map);
+
+//We set this to HTTP to prevent 'CORS' issues
+var downloadData = $.ajax("https://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/json/philadelphia-solar-installations.json");
+var parseData = function(x) {return JSON.parse(x);};
+var makeMarkers = function(y) {return _.map(y, function(t){return [t.LAT, t.LONG_];});};
+var plotMarkers = function(z) {_.map(z, function(k){return L.marker(k).addTo(map);});};
+
+/*
+$.ajax(phillySolarInstallationDataUrl).done(function(ajaxResponseValue) {
+  // a function that does some kind of transformation on the response
+  var computedValue = JSON.parse(ajaxResponseValue);
+  // Logging our computed result (within the body of the ajax function)
+  console.log(computedValue);
+   _.map(computedValue, function(x){L.marker([x.LAT, x.LONG_]).addTo(map);});
+});
+*/
+
+
+/* =====================
+  Define the function removeData so that it clears the markers you've written
+  from the map. You'll know you've succeeded when the markers that were
+  previously displayed are immediately removed from the map.
+
+  In Leaflet, the syntax for removing one specific marker looks like this:
+
+  map.removeLayer(marker);
+
+  In real applications, this will typically happen in response to changes to the
+  user's input.
+===================== */
+
+var removeMarkers = function(c) {map.removeLayer(c);};
+
+/* =====================
+  Optional, stretch goal
+  Write the necessary code (however you can) to plot a filtered down version of
+  the downloaded and parsed data.
+
+  Note: You can add or remove from the code at the bottom of this file.
+===================== */
 
 /* =====================
  CODE EXECUTED HERE!
